@@ -7,6 +7,10 @@ oth_rout=Router()
 
 #диспатчер start
 @oth_rout.message(CommandStart)
-async def message_handler(message: types.Message):
-    await message.answer(text='Приве!\nПожалуйста выбери режим работы бота.',
+async def start_hand(message: types.Message):
+    await message.answer(text='Привет!\nПожалуйста выбери режим работы бота.',
                          reply_markup = start_buts.as_markup())
+    await message.delete()
+#
+# @oth_rout.message(Command('change_mode'))
+# async def change_mode_hand(message: types.Message):
