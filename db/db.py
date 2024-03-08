@@ -45,10 +45,10 @@ async def new_review(rev,them,who):
     await async_db_request(f"INSERT INTO reviews (review,theme,who_send) VALUES ('{rev}','{them}','{who}');",params=None)
 
 
-async def main():
-    await new_review('wrerwe','erwerrwe',1231231)
-
-asyncio.run(main())
+# async def main():
+#     await new_review('wrerwe','erwerrwe',1231231)
+#
+# asyncio.run(main())
 
 
 #удалить все из таблицы TRUNCATE TABLE table_name;
