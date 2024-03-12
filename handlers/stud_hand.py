@@ -26,7 +26,6 @@ async def main_stud(callback: types.CallbackQuery):
 class get_scheld(StatesGroup):
     group = State()
     date = State()
-    scheld = State()
 
 #выбор группы для получения расписания
 @us_rout.callback_query(StateFilter(None),F.data == "scheld")
@@ -47,28 +46,48 @@ async def scheld_date(message: Message, state: FSMContext):
         await message.answer(text='Такой группы нет')
         await state.set_state(get_scheld.group)
 
-@us_rout.message(get_scheld.date,F.text)
-async def take_date(message: Message, state: FSMContext):
-    await message.answer(text='Дата и группа приняты.',reply_markup=types.ReplyKeyboardRemove())
-    await state.update_data(date = message.text.lower())
-    await scheld(message,state)
+# @us_rout.message(get_scheld.date,F.text)
+# async def take_date(message: Message, state: FSMContext):
+#     await message.answer(text='Дата и группа приняты.',reply_markup=types.ReplyKeyboardRemove())
+#     await state.update_data(date = message.text.lower())
+#     await state.set_state(get_scheld.scheld)
 
-@us_rout.message(get_scheld.scheld)
+@us_rout.message(get_scheld.date)
 async def scheld(message: Message, state: FSMContext):
     data =await state.get_data()
     group = data['group']
-    date = data['date']
+    date = message.text.lower()
+    await message.answer(text='Дата и группа приняты.', reply_markup=types.ReplyKeyboardRemove())
     if date == 'сегодня':
         sch = await scheld_today(group)
-        lessons = "".join([f"""
-        {i['originalTimeTitle']} | {i['lessonName']}
-        {i['auditoryName']} | {i['teacherName']}
-        """ for i in sch['lessons']])
-        sch_ = f"""
-        {sch['info']['name']}
-        Пары на день:
-        """+lessons
+        lessons = "".join([f"{i['originalTimeTitle']} | {i['lessonName']}\n{i['auditoryName']} | {'Неизвестно' if i['teacherName'] is None else i['teacherName']}\n" for i in sch['lessons']])
+        sch_ = f"{sch['info']['name']}\nПары на день:\n"+lessons
+        # print(sch_)
+    elif date == 'завтра':
+        sch = await scheld_tomorrow(group)
+        lessons = "".join([f"{i['originalTimeTitle']} | {i['lessonName']}\n{i['auditoryName']} | {'Неизвестно' if i['teacherName'] is None else i['teacherName']}\n" for i in sch['lessons']])
+        sch_ = f"{sch['info']['name']}\nПары на день:\n"+lessons
+        # print(sch_)
+    elif date == 'эта неделя':
+        sch = await scheld_week(group)
+        res = []
+        for j in sch:
+            lessons = "".join([f"{i['originalTimeTitle']} | {i['lessonName']}\n{i['auditoryName']} | {'Неизвестно' if i['teacherName'] is None else i['teacherName']}\n" for i in j['lessons']])
+            k = f"{j['info']['name']}\nПары на день:\n"+lessons
+            res.append(k)
+        sch_ = "".join(res)
+        # print(sch_)
+    elif date == 'cлед неделя':
+        sch = await scheld_next_week(group)
+        print(1111111111)
+        res = []
+        for j in sch:
+            lessons = "".join([f"{i['originalTimeTitle']} | {i['lessonName']}\n{i['auditoryName']} | {'Неизвестно' if i['teacherName'] is None else i['teacherName']}\n" for i in j['lessons']])
+            k = f"{j['info']['name']}\nПары на день:\n" + lessons
+            res.append(k)
+        sch_ = "".join(res)
         print(sch_)
+        # print(sch_)
     await message.answer(
             text=sch_,reply_markup=scheld_buts.as_markup()
         )

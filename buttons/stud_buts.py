@@ -12,7 +12,7 @@ main_stud_buts.row(InlineKeyboardButton(text=main_stud_[2][0],callback_data=main
 main_stud_buts.add(InlineKeyboardButton(text=main_stud_[3][0],callback_data=main_stud_[3][1]))
 
 #кнопка основного выбора даты для рассписания
-scheld_date=["Сегодня","Завтра","След. неделя","Эта неделя"]
+scheld_date=["Сегодня","Завтра","Эта неделя","Cлед неделя"]
 #инциаизация клавиатуры
 scheld_date_buts = ReplyKeyboardBuilder()
 #генерация клавиатуры
