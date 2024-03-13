@@ -16,9 +16,9 @@ bot = Bot(token="6058267012:AAG5BkwEQNzB52ThgW1DIlb4u_CKP1ZPtYQ")
 dp = Dispatcher()
 
 #подключение отдельных диспатчеров
-dp.include_router(oth_rout)
 dp.include_router(us_rout)
 dp.include_router(add_rout)
+dp.include_router(oth_rout)
 
 # Запуск процесса поллинга новых апдейтов
 async def main():
