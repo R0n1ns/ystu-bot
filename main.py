@@ -6,6 +6,7 @@ import logging
 from handlers.stud_hand import us_rout
 from handlers.abb_hand import add_rout
 from handlers.other_hand import oth_rout
+from handlers.teach_hand import teach_rout
 
 # Включаем логирование, чтобы не пропустить важные сообщения
 logging.basicConfig(level=logging.INFO)
@@ -16,6 +17,7 @@ bot = Bot(token="6058267012:AAG5BkwEQNzB52ThgW1DIlb4u_CKP1ZPtYQ")
 dp = Dispatcher()
 
 #подключение отдельных диспатчеров
+dp.include_router(teach_rout)
 dp.include_router(us_rout)
 dp.include_router(add_rout)
 dp.include_router(oth_rout)
