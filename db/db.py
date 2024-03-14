@@ -89,11 +89,32 @@ async def replace_fav_stud(id_tg,fav_group):
     """
     await async_db_request(f"UPDATE students SET fav_scheld = '{fav_group}' WHERE id_tg = '{id_tg}';", params=None)
 
+async def teach_add_tg_id(number,id_tg):
+    """
+    добавляет телеграмм id к сущ записи с номером телефона
+    :param number:
+    :param id_tg:
+    :return:
+    """
+    await async_db_request(f"UPDATE teachers SET tg_id = '{id_tg}' WHERE phone_number  = '{number}';", params=None)
 
-async def main():
-    print(await replace_fav_stud(1231231,None))
 
-asyncio.run(main())
+async def teach_if(number):
+    """
+    ищет запись об учителе в базе
+    :param number:
+    :return:
+    """
+    req = await async_db_request(f"SELECT * FROM teachers WHERE phone_number  = '{number}';",params=None)
+    if req ==[]:
+        return False
+    else:
+        return True
+
+# async def main():
+#     print(await replace_fav_stud(1231231,None))
+#
+# asyncio.run(main())
 
 
 #удалить все из таблицы TRUNCATE TABLE table_name;
