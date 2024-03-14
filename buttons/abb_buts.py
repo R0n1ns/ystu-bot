@@ -2,7 +2,7 @@ from aiogram.types import InlineKeyboardButton,InlineKeyboardMarkup
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 
 #кнопка основного меню аббитуриента
-main_abb_=[["Направления обучения","majors"],["Задать вопрос","ask_quest"],["Соц сети","soc_net"],["Нофости","news"],["Соц сети","soc_net"],["Приемная коммиссия","committee"]]
+main_abb_=[["Направления обучения","majors"],["Задать вопрос","ask_quest"],["Соц сети","soc_net_abb"],["Новости","news"],["Приёмная комиссия","committee"]]
 #инциаизация клавиатуры
 main_abb_buts = InlineKeyboardBuilder()
 #генерация клавиатуры
