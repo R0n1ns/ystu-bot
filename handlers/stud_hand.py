@@ -79,14 +79,14 @@ async def scheld(message: Message, state: FSMContext):
         # print(sch_)
     elif date == 'cлед неделя':
         sch = await scheld_next_week(group)
-        print(1111111111)
+        # print(1111111111)
         res = []
         for j in sch:
             lessons = "".join([f"{i['originalTimeTitle']} | {i['lessonName']}\n{i['auditoryName']} | {'Неизвестно' if i['teacherName'] is None else i['teacherName']}\n" for i in j['lessons']])
             k = f"{j['info']['name']}\nПары на день:\n" + lessons
             res.append(k)
         sch_ = "".join(res)
-        print(sch_)
+        # print(sch_)
         # print(sch_)
     await message.answer(
             text=sch_,reply_markup=scheld_buts.as_markup()

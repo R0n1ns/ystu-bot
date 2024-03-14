@@ -7,6 +7,7 @@ database = 'ystu'
 user = 'ystu'
 pas = 'avrora_123'
 
+############ ОБЩЕЕ ############
 async def async_db_request(query, params):
   """
   Асинхронная функция для выполнения запроса к базе данных postgresql
@@ -32,9 +33,10 @@ async def async_db_request(query, params):
   finally:
     await conn.close()
   return result
+############ ОБЩЕЕ ############
 
 
-
+############ ОТЗЫВЫ ############
 async def new_review(rev,them,who):
     """
     добавляет новый отзыв в базу данных
@@ -43,7 +45,9 @@ async def new_review(rev,them,who):
     :param who: кто отправил отзыв
     """
     await async_db_request(f"INSERT INTO reviews (review,theme,who_send) VALUES ('{rev}','{them}','{who}');",params=None)
+############ ОТЗЫВЫ ############
 
+############ ФАВАРИТНАЯ ГРУППА ############
 async def if_fav_stud(id_tg):
     """
     Возвращает True если фав группа есть,если нет то False
@@ -88,7 +92,9 @@ async def replace_fav_stud(id_tg,fav_group):
     :param fav_group: None или фаворитная группа
     """
     await async_db_request(f"UPDATE students SET fav_scheld = '{fav_group}' WHERE id_tg = '{id_tg}';", params=None)
+############ ФАВАРИТНАЯ ГРУППА ############
 
+############ УЧИТЕЛЬ ############
 async def teach_add_tg_id(number,id_tg):
     """
     добавляет телеграмм id к сущ записи с номером телефона
@@ -111,6 +117,22 @@ async def teach_if(number):
     else:
         return True
 
+async def teach_if_id(id):
+    """
+    ищет запись об учителе в базе по id
+    :param id:
+    :return:
+    """
+    req = await async_db_request(f"SELECT * FROM teachers WHERE tg_id  = '{id}';",params=None)
+    if req ==[]:
+        return False
+    else:
+        return True
+############ УЧИТЕЛЬ ############
+
+############ АББИТУРИЕНТ ############
+
+############ АББИТУРИЕНТ ############
 # async def main():
 #     print(await replace_fav_stud(1231231,None))
 #
