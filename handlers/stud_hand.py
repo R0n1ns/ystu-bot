@@ -20,6 +20,7 @@ us_rout = Router()
 async def main_stud(callback: types.CallbackQuery):
     await callback.message.answer(text='Привет студент\nРадуйся жизни пока не отчислили.',
                                   reply_markup=main_stud_buts.as_markup())
+    await callback.message.delete() #теперь сообщение с выбором режима удаляется
 
 
 #fsm для отправки распписания
@@ -93,3 +94,26 @@ async def scheld(message: Message, state: FSMContext):
         )
     await state.clear()
 
+@us_rout.callback_query(F.data == "departments")
+async def departments(callback: types.CallbackQuery):
+        await callback.message.answer(text='Кафедры:',
+                                      reply_markup=departments_buts.as_markup(resize_keyboard=True))
+        await callback.message.delete()
+
+@us_rout.callback_query(F.data == "news")
+async def news(callback: types.CallbackQuery):
+        await callback.message.answer(text='Новости:',
+                                      reply_markup=news_buts.as_markup(resize_keyboard=True))
+        await callback.message.delete()
+
+@us_rout.callback_query(F.data == "institutes")
+async def institutes(callback: types.CallbackQuery):
+        await callback.message.answer(text='Институты:',
+                                      reply_markup=institutes_buts.as_markup(resize_keyboard=True))
+        await callback.message.delete()
+
+@us_rout.callback_query(F.data == "soc_net")
+async def soc_net(callback: types.CallbackQuery):
+    await callback.message.answer(text='Социальные сети:',
+                                  reply_markup=socnet_buts.as_markup(resize_keyboard=True))
+    await callback.message.delete()
