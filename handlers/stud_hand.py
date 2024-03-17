@@ -95,12 +95,27 @@ async def scheld(message: Message, state: FSMContext):
     await state.clear()
 
 
-#вывод соцсетей
 @us_rout.callback_query(F.data == "soc_net")
 async def soc_net(callback: types.CallbackQuery):
-    await callback.message.answer(text='Социальные сети:\n\n'
-                                       'VK: https://vk.com/ystu\n'
-                                       'Telegram: @YaroslavlSTU',
-                                  disable_web_page_preview=True,
-                                  reply_markup=main_stud_buts.as_markup())
+    await callback.message.answer(text='Социальные сети:',
+                                  reply_markup=socnet_buts.as_markup(resize_keyboard=True))
     await callback.message.delete()
+
+
+@us_rout.callback_query(F.data == "departments")
+async def departments(callback: types.CallbackQuery):
+        await callback.message.answer(text='Кафедры:',
+                                      reply_markup=departments_buts.as_markup(resize_keyboard=True))
+        await callback.message.delete()
+
+@us_rout.callback_query(F.data == "news")
+async def news(callback: types.CallbackQuery):
+        await callback.message.answer(text='Новости:',
+                                      reply_markup=news_buts.as_markup(resize_keyboard=True))
+        await callback.message.delete()
+
+@us_rout.callback_query(F.data == "institutes")
+async def institutes(callback: types.CallbackQuery):
+        await callback.message.answer(text='Институты:',
+                                      reply_markup=institutes_buts.as_markup(resize_keyboard=True))
+        await callback.message.delete()
