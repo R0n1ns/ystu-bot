@@ -6,6 +6,7 @@ from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import StatesGroup, State
 from aiogram.types import Message
 
+from db.db import if_fav_stud, add_fav_stud
 from tools.lists import groups
 
 #импорт кнопок
@@ -14,31 +15,44 @@ from tools.scheld_stud import scheld_today, scheld_tomorrow, scheld_next_week, s
 
 #создание диспатчера
 us_rout = Router()
-
 #глвное меню студента
 @us_rout.callback_query(F.data == "stud_mod")
-async def main_stud(callback: types.CallbackQuery):
+async def main_stud(callback: types.CallbackQuery, state: FSMContext):
     await callback.message.answer(text='Привет студент\nРадуйся жизни пока не отчислили.',
                                   reply_markup=main_stud_buts.as_markup())
-    await callback.message.delete() #теперь сообщение с выбором режима удаляется
+    await state.clear()
+    # await callback.message.delete() #теперь сообщение с выбором режима удаляется
 
 
-#fsm для отправки распписания
+##################################### fsm для отправки распписания ##########################################
 class get_scheld(StatesGroup):
     group = State()
     date = State()
+    fav = State()
 
 #выбор группы для получения расписания
 @us_rout.callback_query(StateFilter(None),F.data == "scheld")
 async def scheld_group(callback: types.CallbackQuery, state: FSMContext):
-    await callback.message.answer(text='Если ты хочешь получить расписание,то напиши название своей группы снизу.'
-                                       '\nЭто должно выглядеть примерно так: '
-                                       '\nцис-16 или сар-44')
-    await state.set_state(get_scheld.group)
+    r = await if_fav_stud(callback.from_user.id)
+    if r == False or r == "No":
+        await callback.message.answer(text='Если ты хочешь получить расписание,то напиши название своей группы снизу.'
+                                           '\nЭто должно выглядеть примерно так: '
+                                           '\nцис-16 или сар-44',reply_markup=scheld_buts.as_markup(resize_keyboard=True))
+        await state.set_state(get_scheld.group)
+    else:
+        await callback.message.answer(text=f'Ваша группа {r}.',
+                                      reply_markup=scheld_buts.as_markup(resize_keyboard=True))
+        await state.set_state(get_scheld.group)
+        await scheld_date(callback.message,state,group = r)
 
 @us_rout.message(get_scheld.group,F.text)
-async def scheld_date(message: Message, state: FSMContext):
-    if message.text.lower() in await groups():
+async def scheld_date(message: Message, state: FSMContext,group=False):
+    if group:
+        await message.answer(text='Пожалуйста выберите дату',
+                             reply_markup=scheld_date_buts.as_markup(resize_keyboard=True))
+        await state.set_state(get_scheld.date)
+        await state.update_data(group=group)
+    elif message.text.lower() in await groups():
         await message.answer(text='Пожалуйста выберите дату',
                              reply_markup=scheld_date_buts.as_markup(resize_keyboard=True))
         await state.set_state(get_scheld.date)
@@ -89,10 +103,44 @@ async def scheld(message: Message, state: FSMContext):
         sch_ = "".join(res)
         # print(sch_)
         # print(sch_)
-    await message.answer(
-            text=sch_,reply_markup=scheld_buts.as_markup()
+    if await if_fav_stud(message.from_user.id) == False:
+        await message.answer(
+            text=sch_
         )
-    await state.clear()
+        await message.answer(
+            text="Добавить группу в избранное?\nГруппу не нужно будет вводить при запросе расписания",
+            reply_markup=fav_.as_markup(resize_keyboard=True)
+        )
+        await state.set_state(get_scheld.fav)
+    else:
+        await message.answer(
+            text=sch_, reply_markup=scheld_buts.as_markup(resize_keyboard=True)
+        )
+
+    # await state.clear()
+
+@us_rout.message(get_scheld.fav)
+async def fav(message: Message, state: FSMContext):
+    answ = message.text
+    data = await state.get_data()
+    group = data['group']
+    await message.answer(text='Понял', reply_markup=types.ReplyKeyboardRemove())
+    if answ == 'Да)':
+        await state.clear()
+        await message.answer(text="Будет сделано!", reply_markup=scheld_buts.as_markup(resize_keyboard=True))
+
+        await add_fav_stud(message.from_user.id,group)
+    elif answ == "Нет(":
+        await state.clear()
+        await message.answer(text="Хорошо(\nВы всегда можете добавить группу в настройках.",
+                             reply_markup=scheld_buts.as_markup(resize_keyboard=True))
+
+        await add_fav_stud(message.from_user.id, "No")
+
+
+##################################### fsm для отправки распписания ##########################################
+
+
 
 @us_rout.callback_query(F.data == "departments")
 async def departments(callback: types.CallbackQuery):

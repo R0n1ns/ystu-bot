@@ -23,11 +23,9 @@ scheld_date_buts.add(KeyboardButton(text=scheld_date[3]))
 
 
 #кнопка основного выбора даты для рассписания
-scheld_=[["В главное меню.",'stud_mod']]
-#инциаизация клавиатуры
 scheld_buts = InlineKeyboardBuilder()
 #генерация клавиатуры
-scheld_buts.row(InlineKeyboardButton(text=scheld_[0][0],callback_data=scheld_[0][1]))
+scheld_buts.row(InlineKeyboardButton(text="В главное меню.",callback_data='stud_mod'))
 
 
 
@@ -67,3 +65,8 @@ institutes_buts.row(InlineKeyboardButton(text='Архитектуры и диз�
 institutes_buts.row(InlineKeyboardButton(text='Химии и химической технологии',url='https://vk.com/public218972913'))
 institutes_buts.row(InlineKeyboardButton(text='Назад', callback_data='soc_net'))
 institutes_buts.add(InlineKeyboardButton(text='В меню студента', callback_data='stud_mod'))
+
+#Фаворитные группы
+fav_ = ReplyKeyboardBuilder()
+fav_.row(KeyboardButton(text='Да)'))
+fav_.add(KeyboardButton(text='Нет('))
