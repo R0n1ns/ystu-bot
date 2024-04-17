@@ -120,6 +120,7 @@ async def teach_add_tg_id(number,id_tg):
     :param id_tg:
     :return:
     """
+    id_tg = str(id_tg)
     await async_db_request(f"UPDATE teachers SET tg_id = '{id_tg}' WHERE phone_number  = '{number}';", params=None)
 
 
@@ -141,19 +142,54 @@ async def teach_if_id(id):
     :param id:
     :return:
     """
+    id = str(id)
     req = await async_db_request(f"SELECT * FROM teachers WHERE tg_id  = '{id}';",params=None)
     if req ==[]:
         return False
     else:
         return True
+############ вапросы ############
+async def add_qeust(id,text):
+    """
+    добавляет вопрос
+    :param id: телеграмм id
+    :param text: максимум 300 символов
+    """
+    id = str(id)
+    await async_db_request(f"INSERT INTO questions (id_tg, text) VALUES ('{id}', '{text}');", params=None)
+
+async def get_qeust_from_user(id,type='all'):
+    """
+    Отправляет заданные вопросы пользователя
+    :param type: тип вопросов slvd,unslvd,all
+    :param id: id пользователя
+    :return: список вопросов пользователя
+    """
+    id = str(id)
+    if type=='all':
+        return await async_db_request(f"SELECT text,resolved,answer FROM public.questions WHERE id_tg='{id}';", params=None)
+    elif type=='slvd':
+        return await async_db_request(f"SELECT text,answer FROM public.questions WHERE id_tg = '6058267012' AND resolved = True;", params=None)
+    elif type=='unslvd':
+        return await async_db_request(f"SELECT text,answer FROM public.questions WHERE id_tg = '6058267012' AND resolved = False;", params=None)
+
+async def get_all_act_qeust():
+    """
+    возвращает все нерешенные вопросы
+    :return: все нерешенные вопросы
+    """
+    return await async_db_request(f"SELECT id_quest,id_tg,text FROM public.questions WHERE resolved=false;", params=None)
+
+
+############ вапросы ############
+
 ############ УЧИТЕЛЬ ############
 
 ############ АББИТУРИЕНТ ############
 
 ############ АББИТУРИЕНТ ############
 # async def main():
-#     print(await replace_fav_stud(824555006,'No'))
-#
+#     print(await get_all_act_qeust())
 # asyncio.run(main())
 
 

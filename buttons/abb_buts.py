@@ -46,3 +46,20 @@ institutes_abb_buts.row(InlineKeyboardButton(text='Архитектуры и д�
 institutes_abb_buts.row(InlineKeyboardButton(text='Химии и химической технологии',url='https://vk.com/public218972913'))
 institutes_abb_buts.row(InlineKeyboardButton(text='Назад', callback_data='soc_net_abb'))
 institutes_abb_buts.add(InlineKeyboardButton(text='В меню абитуриента', callback_data='abb_mod'))
+
+#вопросы
+quest_buts = InlineKeyboardBuilder()
+quest_buts.row(InlineKeyboardButton(text='Задать вопрос', callback_data='add_quest'))
+quest_buts.row(InlineKeyboardButton(text='Заданные вопросы',callback_data='questions'))
+
+#questions
+questions_ = InlineKeyboardBuilder()
+questions_.row(InlineKeyboardButton(text='Решенные', callback_data='solved_quest'))
+questions_.row(InlineKeyboardButton(text='Не решенные', callback_data='unsolved_quest'))
+questions_.row(InlineKeyboardButton(text='Все', callback_data='all_quest'))
+questions_.row(InlineKeyboardButton(text='В меню', callback_data='abb_mod'))
+
+#not quests
+not_quests = InlineKeyboardBuilder()
+not_quests.row(InlineKeyboardButton(text='Назад', callback_data='ask_quest'))
+not_quests.row(InlineKeyboardButton(text='В меню', callback_data='abb_mod'))

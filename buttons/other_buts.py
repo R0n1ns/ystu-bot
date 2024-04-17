@@ -31,3 +31,13 @@ sett_.add(InlineKeyboardButton(text="В настройки", callback_data= 'set
 
 del_fav = ReplyKeyboardBuilder()
 del_fav.add(KeyboardButton(text="Удалить"))
+
+about_ = InlineKeyboardBuilder()
+about_.row(InlineKeyboardButton(text="гитхаб",url='https://github.com/R0n1ns/ystu-bot'))
+about_.row(InlineKeyboardButton(text="Команда",callback_data='team'))
+
+back_ab = InlineKeyboardBuilder()
+back_ab.row(InlineKeyboardButton(text="Назад",callback_data='about'))
+
+back_to_main = InlineKeyboardBuilder()
+back_to_main.row(InlineKeyboardButton(text="Вернуться в главное менюю",callback_data='back_to_main'))

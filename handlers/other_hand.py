@@ -13,11 +13,47 @@ from tools.lists import groups
 #создание диспатчера
 oth_rout=Router()
 
-@oth_rout.message((Command('settings')) or (F.data =='settings'))
-async def settings(message: types.Message):
+@oth_rout.callback_query(F.data =="settings")
+@oth_rout.message(Command('settings'))
+async def settings(query: types.Message | types.CallbackQuery):
+    if isinstance(query, types.Message):
+        # Это команда
+        message = query
+    else:
+        # Это callback-запрос
+        message = query.message
+
     await message.answer(text='Привет!\nПожалуйста выберите что хотите изменить:',
                          reply_markup = settings_buts.as_markup(resize_keyboard=True))
     await message.delete()
+
+@oth_rout.callback_query(F.data =="about")
+@oth_rout.message(Command('about'))
+async def about(query: types.Message | types.CallbackQuery):
+    if isinstance(query, types.Message):
+        # Это команда
+        message = query
+    else:
+        # Это callback-запрос
+        message = query.message
+
+    await message.answer(text='Привет!\n'
+                              'Этот бот разработан студентами 1го курса\n'
+                              'Поэтому хорошо ,если вообще работает',
+                         reply_markup = about_.as_markup(resize_keyboard=True))
+    await message.delete()
+
+@oth_rout.callback_query(F.data == "team")
+async def team(callback: types.CallbackQuery):
+    await callback.message.answer(text='Наша команда:\n\n'
+                              'Разработчикки:\n'
+                              'Коробов Вадим\n'
+                              'Вахрамеев Никита\n\n'
+                              'Помощники:\n'
+                              'Шабалинна Анна\n'
+                              'Исаков Данила',
+                         reply_markup = back_ab.as_markup(resize_keyboard=True))
+
 
 @oth_rout.message(Command('check'))
 async def check(message: types.Message):

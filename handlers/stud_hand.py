@@ -15,10 +15,20 @@ from tools.scheld_stud import scheld_today, scheld_tomorrow, scheld_next_week, s
 
 #создание диспатчера
 us_rout = Router()
+
+
+
 #глвное меню студента
-@us_rout.callback_query(F.data == "stud_mod")
-async def main_stud(callback: types.CallbackQuery, state: FSMContext):
-    await callback.message.answer(text='Привет студент\nРадуйся жизни пока не отчислили.',
+@us_rout.callback_query(F.data =="stud_mod")
+@us_rout.message(Command('stud'))
+async def main_stud(query: types.Message | types.CallbackQuery, state: FSMContext):
+    if isinstance(query, types.Message):
+        # Это команда
+        message = query
+    else:
+        # Это callback-запрос
+        message = query.message
+    await message.answer(text='Привет студент\nРадуйся жизни пока не отчислили.',
                                   reply_markup=main_stud_buts.as_markup())
     await state.clear()
     # await callback.message.delete() #теперь сообщение с выбором режима удаляется
