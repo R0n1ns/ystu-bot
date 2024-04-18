@@ -169,9 +169,9 @@ async def get_qeust_from_user(id,type='all'):
     if type=='all':
         return await async_db_request(f"SELECT text,resolved,answer FROM public.questions WHERE id_tg='{id}';", params=None)
     elif type=='slvd':
-        return await async_db_request(f"SELECT text,answer FROM public.questions WHERE id_tg = '6058267012' AND resolved = True;", params=None)
+        return await async_db_request(f"SELECT text,answer FROM public.questions WHERE id_tg = '{id}' AND resolved = True;", params=None)
     elif type=='unslvd':
-        return await async_db_request(f"SELECT text,answer FROM public.questions WHERE id_tg = '6058267012' AND resolved = False;", params=None)
+        return await async_db_request(f"SELECT text,answer FROM public.questions WHERE id_tg = '{id}' AND resolved = False;", params=None)
 
 async def get_all_act_qeust():
     """
