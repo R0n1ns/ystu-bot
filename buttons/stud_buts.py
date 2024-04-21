@@ -41,7 +41,7 @@ socnet_buts.row(InlineKeyboardButton(text='В меню студента', callba
 news_buts = InlineKeyboardBuilder()
 news_buts.row(InlineKeyboardButton(text='ВКонтакте',url='https://vk.com/ystu'))
 news_buts.row(InlineKeyboardButton(text='Telegram',url='https://t.me/YaroslavlSTU'))
-news_buts.row(InlineKeyboardButton(text='Назад', callback_data='soc_net'))
+news_buts.row(InlineKeyboardButton(text='Назад', callback_data='stud_mod'))
 news_buts.add(InlineKeyboardButton(text='В меню студента', callback_data='stud_mod'))
 
 #Кафедры

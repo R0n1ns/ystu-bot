@@ -1,11 +1,6 @@
 import asyncpg
 import asyncio
 
-# host = 'ystu.czksg02uc9h6.eu-north-1.rds.amazonaws.com'
-# port = '5432'
-# database = 'ystu'
-# user = 'postgres'
-# pas = 'avrora_123'
 
 host = 'localhost'
 port = '5432'
@@ -112,42 +107,6 @@ async def replace_fav_stud(id_tg,fav_group):
     await async_db_request(f"UPDATE students SET fav = '{fav_group}' WHERE id_tg = '{id_tg}';", params=None)
 ############ ФАВАРИТНАЯ ГРУППА ############
 
-############ УЧИТЕЛЬ ############
-async def teach_add_tg_id(number,id_tg):
-    """
-    добавляет телеграмм id к сущ записи с номером телефона
-    :param number:
-    :param id_tg:
-    :return:
-    """
-    id_tg = str(id_tg)
-    await async_db_request(f"UPDATE teachers SET tg_id = '{id_tg}' WHERE phone_number  = '{number}';", params=None)
-
-
-async def teach_if(number):
-    """
-    ищет запись об учителе в базе
-    :param number:
-    :return:
-    """
-    req = await async_db_request(f"SELECT * FROM teachers WHERE phone_number  = '{number}';",params=None)
-    if req ==[]:
-        return False
-    else:
-        return True
-
-async def teach_if_id(id):
-    """
-    ищет запись об учителе в базе по id
-    :param id:
-    :return:
-    """
-    id = str(id)
-    req = await async_db_request(f"SELECT * FROM teachers WHERE tg_id  = '{id}';",params=None)
-    if req ==[]:
-        return False
-    else:
-        return True
 ############ вапросы ############
 async def add_qeust(id,text):
     """

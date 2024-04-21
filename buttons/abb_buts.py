@@ -22,7 +22,7 @@ socnet_abb_buts.row(InlineKeyboardButton(text='В меню абитуриент�
 news_abb_buts = InlineKeyboardBuilder()
 news_abb_buts.row(InlineKeyboardButton(text='ВКонтакте',url='https://vk.com/ystu'))
 news_abb_buts.row(InlineKeyboardButton(text='Telegram',url='https://t.me/YaroslavlSTU'))
-news_abb_buts.row(InlineKeyboardButton(text='Назад', callback_data='soc_net_abb'))
+news_abb_buts.row(InlineKeyboardButton(text='Назад', callback_data='abb_mod'))
 news_abb_buts.add(InlineKeyboardButton(text='В меню абитуриента', callback_data='abb_mod'))
 
 #инциаизация клавиатуры
