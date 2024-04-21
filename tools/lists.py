@@ -1,5 +1,4 @@
 import aiohttp
-import asyncio
 
 async def get_groups_instit():
     """
