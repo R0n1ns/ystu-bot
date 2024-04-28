@@ -1,7 +1,7 @@
 import asyncio
 from aiogram import Bot, Dispatcher,types
 import logging
-
+import os
 #импорт отдельных диспатчеров
 from handlers.stud_hand import us_rout
 from handlers.abb_hand import add_rout
@@ -23,5 +23,10 @@ dp.include_router(oth_rout)
 # Запуск процесса поллинга новых апдейтов
 async def main():
     await dp.start_polling(bot)
+    os.startfile(r'tools/notif.py')
+
+
 if __name__ == "__main__":
     asyncio.run(main())
+
+

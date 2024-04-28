@@ -10,7 +10,7 @@ for i in start:
     start_buts.add(InlineKeyboardButton(text=i[0], callback_data=i[1]))
 
 #кнопки settings
-settings_=[["Фаворитная группа","fav_group"]]
+settings_=[["Фаворитная группа","fav_group"],["Уведомления","notf"]]
 #инциаизация клавиатуры
 settings_buts = InlineKeyboardBuilder()
 #генерация клавиатуры
@@ -33,3 +33,7 @@ back_ab.row(InlineKeyboardButton(text="Назад",callback_data='about'))
 
 back_to_main = InlineKeyboardBuilder()
 back_to_main.row(InlineKeyboardButton(text="Вернуться в главное менюю",callback_data='back_to_main'))
+
+notf_ = InlineKeyboardBuilder()
+notf_.row(InlineKeyboardButton(text="Задать фаворитную группу",callback_data='fav_group'))
+notf_.row(InlineKeyboardButton(text="В меню",callback_data='settings'))
