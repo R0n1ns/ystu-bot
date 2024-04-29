@@ -1,0 +1,4 @@
+asyncpg~=0.29.0
+asyncio~=3.4.3
+aiohttp~=3.9.1
+aiogram~=3.3.0
