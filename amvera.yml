@@ -1,3 +1,4 @@
+---
 meta:
   environment: python
   toolchain:
@@ -8,4 +9,4 @@ build:
 run:
   scriptName: main.py
   persistenceMount: /data
-  containerPort: 80
+  containerPort: 5432
