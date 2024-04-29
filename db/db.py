@@ -1,11 +1,6 @@
 import asyncpg
 import asyncio
 
-# host = 'ystu.czksg02uc9h6.eu-north-1.rds.amazonaws.com'
-# port = '5432'
-# database = 'ystu'
-# user = 'postgres'
-# pas = 'avrora_123'
 
 host = 'localhost'
 port = '5432'
@@ -72,7 +67,7 @@ async def if_fav_stud(id_tg):
         await new_stud(id_tg)
         return False
     req = req[0]['fav']
-    if req == 'None':
+    if req == 'No':
         return False
     else:
         return req
@@ -95,7 +90,7 @@ async def add_fav_stud(id_tg,fav_group):
     else:
         fav = await async_db_request(f"SELECT fav FROM students WHERE id_tg = '{id_tg}';", params=None)
         fav = fav[0]['fav']
-        if fav == 'None':
+        if fav == 'No':
             await async_db_request(f"UPDATE students SET fav = '{fav_group}' WHERE id_tg = '{id_tg}';", params=None)
             return True
         else:
@@ -106,48 +101,17 @@ async def replace_fav_stud(id_tg,fav_group):
     Если fav_group == None,то fav_group = 'None'
     Если чтото другое ,то обновляет группу
     :param id_tg: телеграмм id пользвоателя
-    :param fav_group: None или фаворитная группа
+    :param fav_group: None или фаворитная группа DELETE \"group\" FROM notif WHERE id_tg = '{id_tg}';
     """
     id_tg = str(id_tg)
+    # await async_db_request(f"UPDATE notif SET \"group\" = '{fav_group}' WHERE id_tg = '{id_tg}';", params=None)
     await async_db_request(f"UPDATE students SET fav = '{fav_group}' WHERE id_tg = '{id_tg}';", params=None)
+    if fav_group == None:
+        await async_db_request(f"UPDATE notif SET evd=false WHERE id_tg = '{id}';", params=None )
+        await async_db_request(f"UPDATE notif SET evw=false WHERE id_tg = '{id}';", params=None)
+        await async_db_request(f"UPDATE notif SET evl=false WHERE id_tg = '{id}';", params=None)
 ############ ФАВАРИТНАЯ ГРУППА ############
 
-############ УЧИТЕЛЬ ############
-async def teach_add_tg_id(number,id_tg):
-    """
-    добавляет телеграмм id к сущ записи с номером телефона
-    :param number:
-    :param id_tg:
-    :return:
-    """
-    id_tg = str(id_tg)
-    await async_db_request(f"UPDATE teachers SET tg_id = '{id_tg}' WHERE phone_number  = '{number}';", params=None)
-
-
-async def teach_if(number):
-    """
-    ищет запись об учителе в базе
-    :param number:
-    :return:
-    """
-    req = await async_db_request(f"SELECT * FROM teachers WHERE phone_number  = '{number}';",params=None)
-    if req ==[]:
-        return False
-    else:
-        return True
-
-async def teach_if_id(id):
-    """
-    ищет запись об учителе в базе по id
-    :param id:
-    :return:
-    """
-    id = str(id)
-    req = await async_db_request(f"SELECT * FROM teachers WHERE tg_id  = '{id}';",params=None)
-    if req ==[]:
-        return False
-    else:
-        return True
 ############ вапросы ############
 async def add_qeust(id,text):
     """
@@ -183,13 +147,73 @@ async def get_all_act_qeust():
 
 ############ вапросы ############
 
+
+
+############ уведомления ############
+async def if_notif(id):
+    user = await async_db_request(f'SELECT evw,evd,evl FROM notif where id_tg = \'{id}\';', params=None)
+    return [user[0][0],user[0][1],user[0][2]]
+#каждый день#
+async def swith_evd(id,sw):
+    if sw == 'on':
+        await async_db_request(f"UPDATE notif SET evd=true WHERE id_tg = '{id}';", params=None)
+    elif sw == 'off':
+        await async_db_request(f"UPDATE notif SET evd=false WHERE id_tg = '{id}';", params=None )
+async def evd_notif():
+    users = await async_db_request(f'SELECT id_tg, "group" FROM notif where evd =true; ', params=None)
+    return users
+
+async def evd_notif_upd(id,sch):
+    await async_db_request(f"UPDATE notif SET d_sch = '{sch}' WHERE id_tg = '{id}';", params=None)
+
+async def evd_notif_send():
+    users = await async_db_request(f'SELECT id_tg, d_sch FROM notif where evd =true; ', params=None)
+    return users
+
+#каждую неделю#
+async def swith_evw(id,sw):
+    if sw == 'on':
+        await async_db_request(f"UPDATE notif SET evw=true WHERE id_tg = '{id}';", params=None)
+    elif sw == 'off':
+        await async_db_request(f"UPDATE notif SET evw=false WHERE id_tg = '{id}';", params=None)
+async def evw_notif():
+    users = await async_db_request(f'SELECT id_tg, "group" FROM notif where evw =true; ', params=None)
+    return users
+
+async def evw_notif_upd(id,sch):
+    await async_db_request(f"UPDATE notif SET w_sch = '{sch}' WHERE id_tg = '{id}';", params=None)
+
+async def evw_notif_send():
+    users = await async_db_request(f'SELECT id_tg, w_sch FROM notif where evw =true;', params=None)
+    return users
+#каждую пару#
+async def swith_evl(id,sw):
+    if sw == 'on':
+        await async_db_request(f"UPDATE notif SET evl=true WHERE id_tg = '{id}';", params=None)
+    elif sw == 'off':
+        await async_db_request(f"UPDATE notif SET evl=false WHERE id_tg = '{id}';", params=None)
+async def evl_notif():
+    users = await async_db_request(f'SELECT id_tg, "group" FROM notif where evl =true; ', params=None)
+    return users
+
+async def evl_notif_upd(id,sch):
+    await async_db_request(f"UPDATE notif SET l_sch = '{sch}' WHERE id_tg = '{id}';", params=None)
+
+async def evl_notif_send():
+    users = await async_db_request(f'SELECT id_tg, l_sch FROM notif where evl =true;', params=None)
+    return users
+############ уведомления ############
+
+
 ############ УЧИТЕЛЬ ############
 
 ############ АББИТУРИЕНТ ############
-
+#
 ############ АББИТУРИЕНТ ############
 # async def main():
-#     print(await get_all_act_qeust())
+#     print(await if_notif("824555006"))
+#     await swith_evw("824555006",'off')
+#     print(await if_notif("824555006"))
 # asyncio.run(main())
 
 

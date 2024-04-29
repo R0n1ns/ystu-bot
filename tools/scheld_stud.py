@@ -150,14 +150,8 @@ async def scheld_tomorrow(group):
     except :
         return None
 
-# #для тестировки функций ,при отправьке на гит закоменьтить
+#для тестировки функций ,при отправьке на гит закоменьтить
 # async def main():
-#     t1 = await scheld_week('цис-16')
-#     t2 = await scheld_next_week('цис-16')
 #     t3 = await scheld_today('цис-16')
-#     t4 = await scheld_tomorrow('цис-16')
-#     print(t1)
-#     print(t2)
 #     print(t3)
-#     print(t4)
 # asyncio.run(main())
