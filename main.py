@@ -6,6 +6,7 @@ import os
 from handlers.stud_hand import us_rout
 from handlers.abb_hand import add_rout
 from handlers.other_hand import oth_rout
+from tools.notif import notify
 
 # Включаем логирование, чтобы не пропустить важные сообщения
 logging.basicConfig(level=logging.INFO)
@@ -22,8 +23,10 @@ dp.include_router(oth_rout)
 
 # Запуск процесса поллинга новых апдейтов
 async def main():
-    await dp.start_polling(bot)
-    os.startfile(r'tools/notif.py')
+    polling_task = asyncio.Task(dp.start_polling(bot))
+    my_async_function_task = asyncio.Task(notify(bot))
+
+    await asyncio.gather(polling_task, my_async_function_task)
 
 
 if __name__ == "__main__":

@@ -2,7 +2,6 @@ import asyncio
 
 from db.db import evd_notif, evd_notif_upd, evd_notif_send, evw_notif, evw_notif_send, evw_notif_upd, evl_notif, \
     evl_notif_upd, evl_notif_send
-from main import bot
 from tools.scheld_stud import scheld_today, scheld_week
 
 from datetime import datetime
