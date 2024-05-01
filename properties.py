@@ -9,7 +9,7 @@ evl_time_schem = [[7,0,"8:30"],
                   [16,50,"17:10"],
                   [18,30,"19:00"]] #время отправки уведомлений перед парами
 
-host = 'amvera-r0n1n-cnpg-db-bot-rw'
+host = 'amvera-r0n1n-cnpg-botdb-rw'
 port = '5432'
 database = 'ystubot'
 user = 'admin'

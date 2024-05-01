@@ -1,7 +1,6 @@
 import asyncio
 from aiogram import Bot, Dispatcher,types
 import logging
-import os
 #импорт отдельных диспатчеров
 from handlers.stud_hand import us_rout
 from handlers.abb_hand import add_rout
