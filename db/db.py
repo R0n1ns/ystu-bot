@@ -1,12 +1,6 @@
 import asyncpg
-import asyncio
+from properties import host,port,database,user,pas
 
-
-host = 'localhost'
-port = '5432'
-database = 'ystu_bot'
-user = 'postgres'
-pas = '0725'
 
 ############ ОБЩЕЕ ############
 async def async_db_request(query, params):

@@ -6,13 +6,14 @@ import os
 from handlers.stud_hand import us_rout
 from handlers.abb_hand import add_rout
 from handlers.other_hand import oth_rout
+from properties import token
 from tools.notif import notify
 
 # Включаем логирование, чтобы не пропустить важные сообщения
 logging.basicConfig(level=logging.INFO)
 
 # Объект бота
-bot = Bot(token="6058267012:AAG5BkwEQNzB52ThgW1DIlb4u_CKP1ZPtYQ")
+bot = Bot(token=token)
 # Диспетчер
 dp = Dispatcher()
 

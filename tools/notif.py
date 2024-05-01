@@ -5,20 +5,9 @@ from db.db import evd_notif, evd_notif_upd, evd_notif_send, evw_notif, evw_notif
 from tools.scheld_stud import scheld_today, scheld_week
 
 from datetime import datetime
+from properties import evd_time,evw_time,evl_time_schem
 
 
-############ переменные ###########
-evd_time = 7 #время отправки ежедневного уведомления
-evw_time = 7 #время отправки еженедельных уведомлений
-
-#задание времени отправки сообщений
-evl_time_schem = [[7,0,"8:30"],
-                  [9,40,"10:10"],
-                  [11,20,"12:20"],
-                  [13,30,"14:00"],
-                  [15,10,"15:40"],
-                  [16,50,"17:10"],
-                  [18,30,"19:00"]] #время отправки уведомлений перед парами
 # #переробатывает время в секунды
 evl_time = [i[0]*3600 + i[1]*60 for i in evl_time_schem]#время отправки уведомлений перед парами
 evl_time = [[evl_time[i],evl_time_schem[i][2]] for i in range(0,len(evl_time))] # [[25200, '8:30'], [9600, '10:10'], [6000, '12:20'], [6000, '14:00'], [6000, '15:40'], [7800, '17:10'], [6000, '19:00']]
