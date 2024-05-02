@@ -120,7 +120,7 @@ async def scheld_today(group):
             for i in range(len(t['items'][j]['days'])):
                 dt = (t['items'][j]['days'][i]['info']['date']).split("T")[0]
                 res=0
-                if dt == str(date.today()):
+                if dt == str(date.today().year)+"-"+str(date.today().month)+"-"+str(date.today().day+1):
                     res =t['items'][j]['days'][i]
                     break
             if res!=0:
@@ -141,7 +141,7 @@ async def scheld_tomorrow(group):
             for i in range(len(t['items'][j]['days'])):
                 dt = (t['items'][j]['days'][i]['info']['date']).split("T")[0]
                 res=0
-                if dt == str(date.today()):
+                if dt == str(date.today().year)+"-"+str(date.today().month)+"-"+str(date.today().day+1):
                     res =t['items'][j]['days'][i+1]
                     break
             if res!=0:
@@ -152,6 +152,6 @@ async def scheld_tomorrow(group):
 
 #для тестировки функций ,при отправьке на гит закоменьтить
 # async def main():
-#     t3 = await scheld_today('цис-16')
+#     t3 = await scheld_tomorrow('цис-16')
 #     print(t3)
 # asyncio.run(main())
