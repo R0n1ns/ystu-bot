@@ -6,8 +6,7 @@ from db.db import evd_notif, evd_notif_upd, evd_notif_send, evw_notif, evw_notif
 from tools.scheld_stud import scheld_today, scheld_week
 
 from datetime import datetime
-from properties import evd_time,evw_time,evl_time_schem
-
+from properties import evd_time, evw_time, evl_time_schem, p
 
 # #переробатывает время в секунды
 evl_time = [i[0]*3600 + i[1]*60 for i in evl_time_schem]#время отправки уведомлений перед парами
@@ -93,7 +92,7 @@ async def evw(time,bot):
 async def notify(bot):
     time_w =  datetime.today().weekday()
     time = datetime.now()
-    time = time.second + time.minute * 60 + time.hour * 3600
+    time = time.second + time.minute * 60 + time.hour * 3600 + p*3600
     next_time = 24 * 3600 - time
     logging.info(f"След. время обновления расписания через {next_time/3600}")
     await asyncio.sleep(next_time)
