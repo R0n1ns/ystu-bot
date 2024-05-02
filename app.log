@@ -1,0 +1,13 @@
+2024-05-02 09:57:39,166 - INFO - dispatcher - Start polling
+2024-05-02 09:57:39,421 - INFO - dispatcher - Run polling for bot @testtrete_bot id=6058267012 - 'testtrete'
+2024-05-02 09:57:43,728 - INFO - dispatcher - Polling stopped
+2024-05-02 09:57:43,729 - INFO - dispatcher - Polling stopped for bot @testtrete_bot id=6058267012 - 'testtrete'
+[10:00:08] {C:\Users\korob\AppData\Local\Programs\Python\Python311\Lib\site-packages\aiogram\dispatcher\dispatcher.py:527} INFO - Start polling
+[10:00:08] {C:\Users\korob\AppData\Local\Programs\Python\Python311\Lib\site-packages\aiogram\dispatcher\dispatcher.py:341} INFO - Run polling for bot @testtrete_bot id=6058267012 - 'testtrete'
+[10:00:53] {C:\Users\korob\AppData\Local\Programs\Python\Python311\Lib\site-packages\aiogram\dispatcher\dispatcher.py:554} INFO - Polling stopped
+[10:00:53] {C:\Users\korob\AppData\Local\Programs\Python\Python311\Lib\site-packages\aiogram\dispatcher\dispatcher.py:359} INFO - Polling stopped for bot @testtrete_bot id=6058267012 - 'testtrete'
+[10:16:47] {C:\Users\korob\AppData\Local\Programs\Python\Python311\Lib\site-packages\aiogram\dispatcher\dispatcher.py:527} INFO - Start polling
+[10:16:47] {C:\Users\korob\OneDrive\Рабочий стол\проекты\ystu bot\tools\notif.py:98} INFO - След. время обновления расписания 13.720277777777778
+[10:16:47] {C:\Users\korob\AppData\Local\Programs\Python\Python311\Lib\site-packages\aiogram\dispatcher\dispatcher.py:341} INFO - Run polling for bot @testtrete_bot id=6058267012 - 'testtrete'
+[10:17:12] {C:\Users\korob\AppData\Local\Programs\Python\Python311\Lib\site-packages\aiogram\dispatcher\dispatcher.py:554} INFO - Polling stopped
+[10:17:12] {C:\Users\korob\AppData\Local\Programs\Python\Python311\Lib\site-packages\aiogram\dispatcher\dispatcher.py:359} INFO - Polling stopped for bot @testtrete_bot id=6058267012 - 'testtrete'
