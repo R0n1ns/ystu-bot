@@ -179,20 +179,6 @@ async def fav(message: Message, state: FSMContext):
         await add_fav_stud(message.from_user.id, "No")
         # await state.set_state(get_scheld.ntf)
 
-# @us_rout.message(get_scheld.ntf)
-# async def ntf(message: Message, state: FSMContext):
-#     us =await if_notif(message.from_user.id) # [False,True,False]
-#     # Фаворитные группы
-#     ntf_ = InlineKeyboardBuilder()
-#     ntf_.row(InlineKeyboardButton(text=('❌'if us[0]==False else '✅')+'Каждую неделю', callback_data="evw"))
-#     ntf_.row(InlineKeyboardButton(text=('❌'if us[1]==False else '✅')+'Каждый день', callback_data="evd"))
-#     ntf_.add(InlineKeyboardButton(text=('❌'if us[2]==False else '✅')+'Каждую пару', callback_data="evl"))
-#     ntf_.row(InlineKeyboardButton(text='В меню', callback_data="scheld_buts"))
-#
-#     await message.answer(text='Хотите подключить уведомления?\n'
-#                               'Выберите пункт:', reply_markup=ntf_.as_markup(resize_keyboard=True))
-#     await state.clear()
-
 
 @us_rout.callback_query(lambda query: query.data in ['evw', 'evd', 'evl'])
 async def ev_n(callback: types.CallbackQuery):
