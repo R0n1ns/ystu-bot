@@ -1,6 +1,8 @@
 import aiohttp
 import asyncio
-from datetime import date
+from datetime import date,datetime,timedelta
+
+
 
 """
 структура дня
@@ -120,7 +122,7 @@ async def scheld_today(group):
             for i in range(len(t['items'][j]['days'])):
                 dt = (t['items'][j]['days'][i]['info']['date']).split("T")[0]
                 res=0
-                if dt == str(date.today().year)+"-"+str(date.today().month)+"-"+str(date.today().day+1):
+                if dt == str(date.today()):
                     res =t['items'][j]['days'][i]
                     break
             if res!=0:
@@ -135,14 +137,17 @@ async def scheld_tomorrow(group):
     :param group:группа к каторой получает расписание
     :return: словарь расписание на завтра,если распиания нет то None
     """
+    n_dt = date.today()
+    n_dt += timedelta(days=1)
+    n_dt = datetime.strftime(n_dt,'%Y-%m-%d')
     try:
         t = await get_scheld(group)
         for j in range(len(t['items'])):
             for i in range(len(t['items'][j]['days'])):
                 dt = (t['items'][j]['days'][i]['info']['date']).split("T")[0]
                 res=0
-                if dt == str(date.today().year)+"-"+str(date.today().month)+"-"+str(date.today().day+1):
-                    res =t['items'][j]['days'][i+1]
+                if dt == n_dt:
+                    res =t['items'][j]['days'][i]
                     break
             if res!=0:
                 break
@@ -154,4 +159,5 @@ async def scheld_tomorrow(group):
 # async def main():
 #     t3 = await scheld_tomorrow('цис-16')
 #     print(t3)
+#     print(date.today())
 # asyncio.run(main())
