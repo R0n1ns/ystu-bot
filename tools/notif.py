@@ -68,7 +68,8 @@ async def evd(bot):
     users = await evd_notif_send()
     logging.info(f"Отправлено ежедневных уведомлений {len(users)}")
     for user in users:
-        #print(user["id_tg"], user["d_sch"])
+        # print(user)
+        # print(user["id_tg"], user["d_sch"])
         await bot.send_message(user["id_tg"], user["d_sch"])
 #############################################################
 
@@ -97,7 +98,7 @@ async def evw(bot):
     users = await evw_notif_send()
     logging.info(f"Отправлено еженедельных уведомлений {len(users)}")
     for user in users:
-        # print(user["id_tg"], user["w_sch"])
+        #print(user["id_tg"], user["w_sch"])
         await bot.send_message(user["id_tg"], user["w_sch"])
 #############################################################
 
