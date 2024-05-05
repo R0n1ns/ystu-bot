@@ -10,7 +10,8 @@ from properties import evd_time, evw_time, evl_time_schem, p
 
 # #переробатывает время в секунды
 evl_time = [i[0]*3600 + i[1]*60 for i in evl_time_schem]#время отправки уведомлений перед парами
-evl_time = [[evl_time[i],evl_time_schem[i][2]] for i in range(0,len(evl_time))] # [[25200, '8:30'], [9600, '10:10'], [6000, '12:20'], [6000, '14:00'], [6000, '15:40'], [7800, '17:10'], [6000, '19:00']]
+evl_time = [[evl_time[i],evl_time_schem[i][2]] for i in range(0,len(evl_time))] # [[14400, '8:30'], [24000, '10:10'], [30000, '12:20'], [37800, '14:00'], [43800, '15:40'], [49800, '17:10'], [55800, '19:00']]
+
 ###################################
 
 #################  сообщения каждую пару #########################
@@ -29,7 +30,9 @@ async def evl_sch():
             if not(u[1]):
                 lessons_ = {"8:30":"на расслабоне🎆"}
         await evl_notif_upd(user['id_tg'], str(lessons_).replace("'",'"'))
-async def evl(time,bot):
+async def evl(bot):
+    time = datetime.now()
+    time = time.second + time.minute * 60 + time.hour * 3600 + p*3600
     for i in evl_time:
         time_next =  abs(i[0] - time)
         await asyncio.sleep(time_next)
@@ -57,7 +60,9 @@ async def evd_sch():
             sch_ = "на расслабоне🎆"
         await evd_notif_upd(user['id_tg'], sch_)
 
-async def evd(time,bot):
+async def evd(bot):
+    time = datetime.now()
+    time = time.second + time.minute * 60 + time.hour * 3600 + p*3600
     time_next = abs(evd_time*3600 - time)
     await asyncio.sleep(time_next)
     users = await evd_notif_send()
@@ -84,7 +89,9 @@ async def evw_sch():
         else:
             sch_ = "на расслабоне🎆"
         await evw_notif_upd(user['id_tg'], sch_)
-async def evw(time,bot):
+async def evw(bot):
+    time = datetime.now()
+    time = time.second + time.minute * 60 + time.hour * 3600 + p*3600
     time_next = abs(evw_time*3600 - time)
     await asyncio.sleep(time_next)
     users = await evw_notif_send()
@@ -99,25 +106,22 @@ async def notify(bot):
     time_w =  datetime.today().weekday()
     time = datetime.now()
     time = time.second + time.minute * 60 + time.hour * 3600 + p*3600
-    next_time = 24*3600 - time
+    next_time = 24*3600 + 30*60 - time
     logging.info(f"След. время обновления расписания через {next_time/3600}")
     await asyncio.sleep(next_time)
-
-    time = datetime.now()
-    time = time.second + time.minute * 60 + time.hour * 3600 + p*3600
     #ежедневные уведомления
     await evd_sch()
-    await evd(time,bot)
+    await evd(bot)
     # каждую пару уведомления
     await evl_sch()
-    await evl(time,bot)
+    await evl(bot)
     #еженедельное уведомлени
     if time_w == 1:
         await evw_sch()
-        await evw(time,bot)
+        await evw(bot)
     logging.info(f"Уведомления успешно отправлены")
     #заново
-    await asyncio.sleep(100)
+    await asyncio.sleep(300)
     await notify(bot)
 
 # async def main():
