@@ -31,7 +31,7 @@ async def evl_sch():
         await evl_notif_upd(user['id_tg'], str(lessons_).replace("'",'"'))
 async def evl(time,bot):
     for i in evl_time:
-        time_next =  i[0] - time
+        time_next =  abs(i[0] - time)
         await asyncio.sleep(time_next)
         users = await evl_notif_send()
         logging.info(f"Отправлено на пару в {i[1]} уведомлений {len(users)}")
@@ -56,8 +56,9 @@ async def evd_sch():
         else:
             sch_ = "на расслабоне🎆"
         await evd_notif_upd(user['id_tg'], sch_)
+
 async def evd(time,bot):
-    time_next = evd_time*3600 - time
+    time_next = abs(evd_time*3600 - time)
     await asyncio.sleep(time_next)
     users = await evd_notif_send()
     logging.info(f"Отправлено ежедневных уведомлений {len(users)}")
@@ -84,7 +85,7 @@ async def evw_sch():
             sch_ = "на расслабоне🎆"
         await evw_notif_upd(user['id_tg'], sch_)
 async def evw(time,bot):
-    time_next = evw_time*3600 - time
+    time_next = abs(evw_time*3600 - time)
     await asyncio.sleep(time_next)
     users = await evw_notif_send()
     logging.info(f"Отправлено еженедельных уведомлений {len(users)}")
@@ -120,8 +121,6 @@ async def notify(bot):
     await notify(bot)
 
 # async def main():
-#     print("Запущено")
-#     await notify(bot=None)
 # if __name__ == "__main__":
 #     asyncio.run(main())
 
