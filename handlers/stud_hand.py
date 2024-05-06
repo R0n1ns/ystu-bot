@@ -75,11 +75,7 @@ async def scheld_date(message: Message, state: FSMContext,group=False):
         await message.answer(text='Такой группы нет')
         await state.set_state(get_scheld.group)
 
-# @us_rout.message(get_scheld.date,F.text)
-# async def take_date(message: Message, state: FSMContext):
-#     await message.answer(text='Дата и группа приняты.',reply_markup=types.ReplyKeyboardRemove())
-#     await state.update_data(date = message.text.lower())
-#     await state.set_state(get_scheld.scheld)
+
 
 @us_rout.message(get_scheld.date)
 async def scheld(message: Message, state: FSMContext):
@@ -128,7 +124,8 @@ async def scheld(message: Message, state: FSMContext):
             sch_ = "на расслабоне🎆"
         # print(sch_)
         # print(sch_)
-    if await if_fav_stud(message.from_user.id) == False:
+    r=await if_fav_stud(message.from_user.id)
+    if r == False :
         await message.answer(
             text=sch_
         )
@@ -158,13 +155,13 @@ async def fav(message: Message, state: FSMContext):
 
         await add_fav_stud(message.from_user.id,group)
 
-        us = await if_notif(message.from_user.id)  # [False,True,False]
+        us = await if_notif(message.from_user.id,group)  # [False,True,False]
         # Фаворитные группы
         ntf_ = InlineKeyboardBuilder()
         ntf_.row(InlineKeyboardButton(text=('❌' if us[0] == False else '✅') + 'Каждую неделю', callback_data="evw"))
         ntf_.row(InlineKeyboardButton(text=('❌' if us[1] == False else '✅') + 'Каждый день', callback_data="evd"))
         ntf_.add(InlineKeyboardButton(text=('❌' if us[2] == False else '✅') + 'Каждую пару', callback_data="evl"))
-        ntf_.row(InlineKeyboardButton(text='В меню', callback_data="scheld_buts"))
+        ntf_.row(InlineKeyboardButton(text='В меню', callback_data="stud_mod"))
 
         await message.answer(text='Хотите подключить уведомления?\n'
                                   'Выберите пункт:', reply_markup=ntf_.as_markup(resize_keyboard=True))
@@ -213,7 +210,7 @@ async def ev_n(callback: types.CallbackQuery):
         [types.InlineKeyboardButton(text=('❌' if not us[0] else '✅') + 'Каждую неделю', callback_data="evw")],[
          types.InlineKeyboardButton(text=('❌' if not us[1] else '✅') + 'Каждый день', callback_data="evd"),
         types.InlineKeyboardButton(text=('❌' if not us[2] else '✅') + 'Каждую пару', callback_data="evl")],
-        [InlineKeyboardButton(text='В меню', callback_data="scheld_buts")]
+        [InlineKeyboardButton(text='В меню', callback_data="stud_mod")]
     ], )
 
     await callback.message.edit_text(text='Хотите подключить уведомления?\n'

@@ -49,7 +49,7 @@ async def new_review(rev,them,who):
 ############ ОТЗЫВЫ ############
 
 ############ ФАВАРИТНАЯ ГРУППА ############
-async def if_fav_stud(id_tg):
+async def if_fav_stud(id_tg,group="None"):
     """
     Возвращает True если фав группа есть,если нет то False
     :param id_tg: тг id пользователя
@@ -61,7 +61,7 @@ async def if_fav_stud(id_tg):
         await new_stud(id_tg)
         return False
     req = req[0]['fav']
-    if req == 'No':
+    if req == 'None' or req =='No':
         return False
     else:
         return req
@@ -84,7 +84,7 @@ async def add_fav_stud(id_tg,fav_group):
     else:
         fav = await async_db_request(f"SELECT fav FROM students WHERE id_tg = '{id_tg}';", params=None)
         fav = fav[0]['fav']
-        if fav == 'No':
+        if fav == 'None':
             await async_db_request(f"UPDATE students SET fav = '{fav_group}' WHERE id_tg = '{id_tg}';", params=None)
             return True
         else:
@@ -144,9 +144,13 @@ async def get_all_act_qeust():
 
 
 ############ уведомления ############
-async def if_notif(id):
+async def if_notif(id,group='None'):
     user = await async_db_request(f'SELECT evw,evd,evl FROM notif where id_tg = \'{id}\';', params=None)
-    return [user[0][0],user[0][1],user[0][2]]
+    if user ==[]:
+        await async_db_request(f'INSERT INTO notif(id_tg,"group") VALUES  (\'{id}\',\'{group}\');', params=None)
+        return[False,False,False]
+    else:
+        return [user[0][0],user[0][1],user[0][2]]
 #каждый день#
 async def swith_evd(id,sw):
     if sw == 'on':
