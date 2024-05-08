@@ -93,7 +93,7 @@ async def fav_change(message: Message, state: FSMContext):
         await message.answer(text='Такой группы нет')
         await state.set_state(fav_res.group)
 
-@oth_rout.callback_query(F.data =="notf")
+@oth_rout.callback_query(F.data =="notf_")
 async def notf(callback: types.CallbackQuery):
     if not(await if_fav_stud(callback.from_user.id)):
             await callback.message.answer(text="Сначало введите группу!",

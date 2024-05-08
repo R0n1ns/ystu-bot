@@ -11,3 +11,24 @@
 [10:16:47] {C:\Users\korob\AppData\Local\Programs\Python\Python311\Lib\site-packages\aiogram\dispatcher\dispatcher.py:341} INFO - Run polling for bot @testtrete_bot id=6058267012 - 'testtrete'
 [10:17:12] {C:\Users\korob\AppData\Local\Programs\Python\Python311\Lib\site-packages\aiogram\dispatcher\dispatcher.py:554} INFO - Polling stopped
 [10:17:12] {C:\Users\korob\AppData\Local\Programs\Python\Python311\Lib\site-packages\aiogram\dispatcher\dispatcher.py:359} INFO - Polling stopped for bot @testtrete_bot id=6058267012 - 'testtrete'
+[10:22:37] {C:\Users\korob\AppData\Local\Programs\Python\Python311\Lib\site-packages\aiogram\dispatcher\dispatcher.py:527} INFO - Start polling
+[10:22:37] {C:\Users\korob\OneDrive\Рабочий стол\проекты\ystu bot\tools\notif.py:98} INFO - След. время обновления расписания через 13.623055555555556
+[10:22:38] {C:\Users\korob\AppData\Local\Programs\Python\Python311\Lib\site-packages\aiogram\dispatcher\dispatcher.py:341} INFO - Run polling for bot @testtrete_bot id=6058267012 - 'testtrete'
+[10:22:51] {C:\Users\korob\AppData\Local\Programs\Python\Python311\Lib\site-packages\aiogram\dispatcher\dispatcher.py:172} INFO - Update id=184404034 is handled. Duration 343 ms by bot id=6058267012
+[10:22:54] {C:\Users\korob\AppData\Local\Programs\Python\Python311\Lib\site-packages\aiogram\dispatcher\dispatcher.py:172} INFO - Update id=184404035 is handled. Duration 93 ms by bot id=6058267012
+[10:22:58] {C:\Users\korob\AppData\Local\Programs\Python\Python311\Lib\site-packages\aiogram\dispatcher\dispatcher.py:172} INFO - Update id=184404036 is handled. Duration 311 ms by bot id=6058267012
+[10:23:00] {C:\Users\korob\AppData\Local\Programs\Python\Python311\Lib\site-packages\aiogram\dispatcher\dispatcher.py:172} INFO - Update id=184404037 is handled. Duration 1827 ms by bot id=6058267012
+[10:23:03] {C:\Users\korob\AppData\Local\Programs\Python\Python311\Lib\site-packages\aiogram\dispatcher\dispatcher.py:172} INFO - Update id=184404038 is handled. Duration 77 ms by bot id=6058267012
+[10:23:08] {C:\Users\korob\AppData\Local\Programs\Python\Python311\Lib\site-packages\aiogram\dispatcher\dispatcher.py:172} INFO - Update id=184404039 is handled. Duration 342 ms by bot id=6058267012
+[10:23:09] {C:\Users\korob\AppData\Local\Programs\Python\Python311\Lib\site-packages\aiogram\dispatcher\dispatcher.py:172} INFO - Update id=184404040 is handled. Duration 469 ms by bot id=6058267012
+[10:23:10] {C:\Users\korob\AppData\Local\Programs\Python\Python311\Lib\site-packages\aiogram\dispatcher\dispatcher.py:172} INFO - Update id=184404041 is handled. Duration 639 ms by bot id=6058267012
+[10:23:11] {C:\Users\korob\AppData\Local\Programs\Python\Python311\Lib\site-packages\aiogram\dispatcher\dispatcher.py:172} INFO - Update id=184404042 is handled. Duration 500 ms by bot id=6058267012
+[10:23:12] {C:\Users\korob\AppData\Local\Programs\Python\Python311\Lib\site-packages\aiogram\dispatcher\dispatcher.py:172} INFO - Update id=184404043 is not handled. Duration 16 ms by bot id=6058267012
+[10:23:17] {C:\Users\korob\AppData\Local\Programs\Python\Python311\Lib\site-packages\aiogram\dispatcher\dispatcher.py:172} INFO - Update id=184404044 is handled. Duration 656 ms by bot id=6058267012
+[10:23:24] {C:\Users\korob\AppData\Local\Programs\Python\Python311\Lib\site-packages\aiogram\dispatcher\dispatcher.py:554} INFO - Polling stopped
+[10:23:24] {C:\Users\korob\AppData\Local\Programs\Python\Python311\Lib\site-packages\aiogram\dispatcher\dispatcher.py:359} INFO - Polling stopped for bot @testtrete_bot id=6058267012 - 'testtrete'
+[22:10:53] {C:\Users\korob\AppData\Local\Programs\Python\Python311\Lib\site-packages\aiogram\dispatcher\dispatcher.py:527} INFO - Start polling
+[22:10:53] {C:\Users\korob\OneDrive\Рабочий стол\проекты\ystu bot\tools\notif.py:98} INFO - След. время обновления расписания через 1.8186111111111112
+[22:10:53] {C:\Users\korob\AppData\Local\Programs\Python\Python311\Lib\site-packages\aiogram\dispatcher\dispatcher.py:341} INFO - Run polling for bot @testtrete_bot id=6058267012 - 'testtrete'
+[22:11:03] {C:\Users\korob\AppData\Local\Programs\Python\Python311\Lib\site-packages\aiogram\dispatcher\dispatcher.py:554} INFO - Polling stopped
+[22:11:03] {C:\Users\korob\AppData\Local\Programs\Python\Python311\Lib\site-packages\aiogram\dispatcher\dispatcher.py:359} INFO - Polling stopped for bot @testtrete_bot id=6058267012 - 'testtrete'
