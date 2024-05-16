@@ -40,7 +40,7 @@ dp.include_router(oth_rout)
 # Запуск процесса поллинга новых апдейтов
 async def main():
     polling_task = asyncio.Task(dp.start_polling(bot))
-    my_async_function_task = asyncio.Task(notify(bot,tst=False))
+    my_async_function_task = asyncio.Task(notify(bot,tst=True))
 
     await asyncio.gather(polling_task, my_async_function_task)
 
