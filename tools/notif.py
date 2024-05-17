@@ -120,7 +120,7 @@ async def notify(bot, tst=False):
         time_w = datetime.today().weekday()
         time = datetime.now()
         time = time.second + time.minute * 60 + time.hour * 3600 + p * 3600
-        next_time = rest_time * 3600 + 30 * 60 - time
+        next_time = rest_time * 3600 + 60 - time
         logging.info(f"След. время обновления расписания через {next_time / 3600}")
 
         if bot == None:
