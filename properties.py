@@ -1,8 +1,8 @@
 #часовой пояс
 p =3
-rest_time =24
-evd_time = 7 #время отправки ежедневного уведомления
-evw_time = 7 #время отправки еженедельных уведомлений
+rest_time =13 + 20/60
+evd_time = 13 + 25/60 #время отправки ежедневного уведомления
+evw_time = 13 + 25/60 #время отправки еженедельных уведомлений
 #задание времени отправки сообщений
 evl_time_schem = [[7,0,"8:30"],
                   [9,40,"10:10"],
@@ -12,10 +12,10 @@ evl_time_schem = [[7,0,"8:30"],
                   [16,50,"17:10"],
                   [18,30,"19:00"]] #время отправки уведомлений перед парами
 
-host = 'localhost'
+host = 'amvera-r0n1n-cnpg-botdb-rw'
 port = '5432'
-database = 'ystu_bot'
-user = 'postgres'
-pas = '0725'
+database = 'ystubot'
+user = 'admin'
+pas = 'avrora_321'
 
-token = ""
+token = "6058267012:AAG5BkwEQNzB52ThgW1DIlb4u_CKP1ZPtYQ"
