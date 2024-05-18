@@ -29,6 +29,7 @@ async def evl_sch():
 async def evl(bot, tst=False):
     time = datetime.now()
     time = time.second + time.minute * 60 + time.hour * 3600 + p * 3600
+    time = (time - 24*3600) if time >= 24*3600 else time
     for i in evl_time:
         time_next = abs(i[0] - time)
         if bot is None:
@@ -65,6 +66,7 @@ async def evd_sch():
 async def evd(bot, tst=False):
     time = datetime.now()
     time = time.second + time.minute * 60 + time.hour * 3600 + p * 3600
+    time = (time - 24*3600) if time >= 24*3600 else time
     time_next = abs(evd_time * 3600 - time)
     if bot is None:
         print("evd -- ", time_next)
@@ -101,6 +103,7 @@ async def evw_sch():
 async def evw(bot, tst=False):
     time = datetime.now()
     time = time.second + time.minute * 60 + time.hour * 3600 + p * 3600
+    time = (time - 24*3600) if time >= 24*3600 else time
     time_next = abs(evw_time * 3600 - time)
     if bot is None:
         print("evw -- ", time_next)
