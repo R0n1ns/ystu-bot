@@ -63,3 +63,7 @@ questions_.row(InlineKeyboardButton(text='В меню', callback_data='abb_mod')
 not_quests = InlineKeyboardBuilder()
 not_quests.row(InlineKeyboardButton(text='Назад', callback_data='ask_quest'))
 not_quests.row(InlineKeyboardButton(text='В меню', callback_data='abb_mod'))
+
+#Направления обучения
+majors_buts = InlineKeyboardBuilder()
+majors_buts.add(InlineKeyboardButton(text='В меню абитуриента', callback_data='abb_mod'))
