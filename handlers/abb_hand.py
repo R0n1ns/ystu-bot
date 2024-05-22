@@ -5,6 +5,9 @@ from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import StatesGroup, State
 from aiogram.filters.command import Command
 from aiogram.types import Message
+from aiogram.utils.markdown import hlink
+import requests
+from bs4 import BeautifulSoup
 
 #импорт кнопок
 from buttons.abb_buts import *
@@ -145,3 +148,25 @@ async def institutes_abb(callback: types.CallbackQuery):
         await callback.message.answer(text='Институты:',
                                       reply_markup=institutes_abb_buts.as_markup(resize_keyboard=True))
         await callback.message.delete()
+
+#Направления обучения
+@add_rout.callback_query(F.data == "majors")
+async def majors(callback: types.CallbackQuery):
+    url = 'https://www.ystu.ru/admissions/'
+    r = requests.get(url).text
+    soup = BeautifulSoup(r)
+    print("Направления подготовки:")
+    for i in range(6):
+        f = soup.find('div', {'id': f'bx_1373509569_347{i}'}).find('a').get('href')
+        f1 = soup.find('div', {'id': f'bx_1373509569_347{i}'}).find('span', {'class': 'card__title'}).get_text()
+        sp = BeautifulSoup(requests.get('https://www.ystu.ru' + f).text)
+        f2 = sp.findAll('a', {'class': 'page-main-programm-item'})
+        edu_vector = ''
+        edu_vector += "🌟"+f1 + ":"
+        for j in range(len(f2)):
+            f3 = f2[j].get('href')
+            out = "\n|_🎓" + f2[j].find('span', {'class': 'page-main-programm-item__title'}).get_text()
+            links = 'https://www.ystu.ru' + f3
+            edu_vector += out + '\n('+links+')'
+        await callback.message.answer(text=edu_vector)
+    await callback.message.answer(text='ᅠ',reply_markup=majors_buts.as_markup(resize_keyboard=True))
