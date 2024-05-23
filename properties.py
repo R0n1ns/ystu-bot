@@ -18,4 +18,4 @@ database = 'ystubot'
 user = 'admin'
 pas = 'avrora_321'
 
-token = "6058267012:AAG5BkwEQNzB52ThgW1DIlb4u_CKP1ZPtYQ"
+token = "7165945851:AAFfQ4o9VypAkue-cqjvJEWsZXvFUVKTX3g"
