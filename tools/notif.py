@@ -27,10 +27,9 @@ async def evl_sch():
         await evl_notif_upd(user['id_tg'], str(lessons_).replace("'", '"'))
 
 async def evl(bot, tst=False):
-    time = datetime.now()
-    time = time.second + time.minute * 60 + time.hour * 3600 + p * 3600
-    time = (time - 24*3600) if time >= 24*3600 else time
     for i in evl_time:
+        time = datetime.now()
+        time = time.second + time.minute * 60 + time.hour * 3600 + p * 3600
         time_next = abs(i[0] - time)
         if bot is None:
             print("evl -- ", time_next)
