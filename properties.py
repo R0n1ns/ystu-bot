@@ -17,4 +17,4 @@ port = '5432'
 database = 'ystubot'
 user = 'admin'
 pas = 'avrora_321'
-token = "7165945851:AAFfQ4o9VypAkue-cqjvJEWsZXvFUVKTX3g"
+token ='7165945851:AAFfQ4o9VypAkue-cqjvJEWsZXvFUVKTX3g'
