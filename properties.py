@@ -12,9 +12,9 @@ evl_time_schem = [[7,0,"8:30"],
                   [16,50,"17:10"],
                   [18,30,"19:00"]] #время отправки уведомлений перед парами
 
-host = 'localhost'
+host = 'amvera-r0n1n-cnpg-botdb-rw'
 port = '5432'
-database = 'ystu_bot'
-user = 'postgres'
-pas = '0725'
-token = ""
+database = 'ystubot'
+user = 'admin'
+pas = 'avrora_321'
+token = "7165945851:AAFfQ4o9VypAkue-cqjvJEWsZXvFUVKTX3g"
