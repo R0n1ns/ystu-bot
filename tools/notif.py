@@ -39,15 +39,19 @@ async def evl(bot, tst=False):
             print("evl -- ", time_next)
         await asyncio.sleep(time_next)
         users = await evl_notif_send()
-        logging.info(f"Отправлено на пару в {i[1]} уведомлений {len(users)}")
+        err=0
         for user in users:
-            text = dict(eval(user["l_sch"]))
-            if i[1] in text.keys():
-                text = text[i[1]]
-                if bot is None:
-                    print(user["id_tg"], text)
-                else:
-                    await bot.send_message(user["id_tg"], text)
+            try:
+                text = dict(eval(user["l_sch"]))
+                if i[1] in text.keys():
+                    text = text[i[1]]
+                    if bot is None:
+                        print(user["id_tg"], text)
+                    else:
+                        await bot.send_message(user["id_tg"], text)
+            except:
+                err += 1
+        logging.info(f"Отправлено на пару в {i[1]} уведомлений {len(users)},с ошибкой {err}")
 
 async def evd_sch():
     users = await evd_notif()
@@ -75,12 +79,16 @@ async def evd(bot, tst=False):
         print("evd -- ", time_next)
     await asyncio.sleep(time_next)
     users = await evd_notif_send()
-    logging.info(f"Отправлено ежедневных уведомлений {len(users)}")
+    err=0
     for user in users:
-        if bot is None:
-            print(user["id_tg"], user["d_sch"])
-        else:
-            await bot.send_message(user["id_tg"], user["d_sch"])
+        try:
+            if bot is None:
+                print(user["id_tg"], user["d_sch"])
+            else:
+                await bot.send_message(user["id_tg"], user["d_sch"])
+        except:
+            err += 1
+    logging.info(f"Отправлено ежедневных уведомлений {len(users)},неудачно {err}")
 
 async def evw_sch():
     users = await evw_notif()
@@ -111,12 +119,16 @@ async def evw(bot, tst=False):
         print("evw -- ", time_next)
     await asyncio.sleep(time_next)
     users = await evw_notif_send()
-    logging.info(f"Отправлено еженедельных уведомлений {len(users)}")
+    err=0
     for user in users:
-        if bot is None:
-            print(user["id_tg"], user["w_sch"])
-        else:
-            await bot.send_message(user["id_tg"], user["w_sch"])
+        try:
+            if bot is None:
+                print(user["id_tg"], user["w_sch"])
+            else:
+                await bot.send_message(user["id_tg"], user["w_sch"])
+        except:
+            err += 1
+    logging.info(f"Отправлено еженедельных уведомлений {len(users)},неудачно {err}")
 
 async def notify(bot, tst=False):
         time_w = datetime.today().weekday()
