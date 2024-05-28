@@ -9,7 +9,8 @@ from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import StatesGroup, State
 from aiogram.types import Message
 
-from db.db import if_fav_stud, add_fav_stud, if_notif, swith_evd, swith_evw, swith_evl
+from buttons.abb_buts import quest_buts
+from db.db import if_fav_stud, add_fav_stud, if_notif, swith_evd, swith_evw, swith_evl, get_qeust_from_user, add_qeust
 from tools.lists import groups
 
 #импорт кнопок
@@ -219,6 +220,95 @@ async def ev_n(callback: types.CallbackQuery):
 
 
 ##################################### fsm для отправки распписания ##########################################
+#вопрос
+@us_rout.callback_query(F.data == "ask_quest_")
+async def quest_(callback: types.CallbackQuery):
+    await callback.message.answer(text='Привет !\n'
+                                       'Хочешь задать вопрос или посмотреть свои вопросы?',
+                                  reply_markup=quest_buts_.as_markup(resize_keyboard=True))
+    await callback.message.delete()
+################заданные вопросы################
+@us_rout.callback_query(F.data == "questions_")
+async def questions_(callback: types.CallbackQuery):
+    all_ = await get_qeust_from_user(callback.from_user.id)
+    slvd = await get_qeust_from_user(callback.from_user.id,'slvd')
+    unslvd = await get_qeust_from_user(callback.from_user.id, 'unslvd')
+    if all_:
+        await callback.message.answer(text=f'У вас {len(all_)} вопросов\n'
+                                           f'Решенных : {len(slvd)}\n'
+                                           f'Не решенных : {len(unslvd)}\n\n'
+                                           'Какие вопросы хотите вывести?',
+                                      reply_markup=questions__.as_markup(resize_keyboard=True))
+    else:
+        await callback.message.answer(text='У вас нет вопросов(',
+                                      reply_markup=not_quests_.as_markup(resize_keyboard=True))
+    await callback.message.delete()
+
+@us_rout.callback_query(F.data == "solved_quest_")
+async def solved_quest_(callback: types.CallbackQuery):
+    quests = await get_qeust_from_user(callback.from_user.id,'slvd')
+    if quests!=[]:
+        for quest in quests:
+            await callback.message.answer(text=f"Вопрос:\n {quest['text']}\n"
+                                               f"Ответ: \n {quest['answer']}\n")
+        await callback.message.answer(text='Готово!',
+                                      reply_markup=not_quests_.as_markup(resize_keyboard=True))
+    else:
+        await callback.message.answer(text='Решенных вопросов нет!',
+                                      reply_markup=not_quests_.as_markup(resize_keyboard=True))
+    await callback.message.delete()
+@us_rout.callback_query(F.data == "unsolved_quest_")
+async def unsolved_quest_(callback: types.CallbackQuery):
+    quests = await get_qeust_from_user(callback.from_user.id, 'unslvd')
+    if quests:
+        for quest in quests:
+            await callback.message.answer(text=f"Вопрос:\n {quest['text']}")
+        await callback.message.answer(text='Готово!',
+                                      reply_markup=not_quests_.as_markup(resize_keyboard=True))
+    else:
+        await callback.message.answer(text='Не решенных вопросов нет!',
+                                      reply_markup=not_quests_.as_markup(resize_keyboard=True))
+    await callback.message.delete()
+
+@us_rout.callback_query(F.data == "all_quest_")
+async def all_quest_(callback: types.CallbackQuery):
+    quests = await get_qeust_from_user(callback.from_user.id)
+    for quest in quests:
+        if quest['resolved']:
+            await callback.message.answer(text=f"Вопрос:\n {quest['text']}\n"
+                                               f"Ответ: \n {quest['answer']}\n")
+        else:
+            await callback.message.answer(text=f"Вопрос:\n {quest['text']}")
+    await callback.message.answer(text='Готово!',
+                                  reply_markup=not_quests_.as_markup(resize_keyboard=True))
+    await callback.message.delete()
+
+################заданные вопросы################
+
+################задать вопрос################
+
+class add_quest__(StatesGroup):
+    text = State()
+@us_rout.callback_query(StateFilter(None),F.data == "add_quest_")
+async def add_quest_(callback: types.CallbackQuery, state: FSMContext):
+    await callback.message.answer(text='Пожалуйста напишие текст вашего запроса!\n'
+                                       'Текст не должен быть больше 300 символов,\n'
+                                       'А также не нужен содержать нецензурную лексику.',
+                                  reply_markup=not_quests_.as_markup(resize_keyboard=True))
+    await state.set_state(add_quest__.text)
+
+@us_rout.message(add_quest__.text,F.text)
+async def add_text_q_(message: Message, state: FSMContext):
+    text = message.text.lower()
+    if len(text)>300:
+        await message.answer(text='Текст будет обрезаан до 300 символов.')
+        text = text[:300]
+    await message.answer(text='Текст принят ,ожидайте ответа!',
+                         reply_markup=not_quests_.as_markup(resize_keyboard=True))
+    await add_qeust(message.from_user.id,text)
+
+    await state.clear()
+################задать вопрос################
 
 
 

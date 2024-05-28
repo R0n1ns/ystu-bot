@@ -2,7 +2,7 @@ from aiogram.types import InlineKeyboardButton,InlineKeyboardMarkup ,KeyboardBut
 from aiogram.utils.keyboard import InlineKeyboardBuilder ,ReplyKeyboardBuilder
 
 #кнопка основного меню студента
-main_stud_=[["Расписание","scheld"],["Отзывы","revie"],["Соц сети","soc_net"],["О вузе","news"]]
+main_stud_=[["Расписание","scheld"],["Отзывы","ask_quest_"],["Соц сети","soc_net"],["О вузе","news"]]
 #инциаизация клавиатуры
 main_stud_buts = InlineKeyboardBuilder()
 #генерация клавиатуры
@@ -70,3 +70,20 @@ institutes_buts.add(InlineKeyboardButton(text='В меню студента', ca
 fav_ = ReplyKeyboardBuilder()
 fav_.row(KeyboardButton(text='Да)'))
 fav_.add(KeyboardButton(text='Нет('))
+
+#вопросы
+quest_buts_ = InlineKeyboardBuilder()
+quest_buts_.row(InlineKeyboardButton(text='Задать вопрос', callback_data='add_quest_'))
+quest_buts_.row(InlineKeyboardButton(text='Заданные вопросы',callback_data='questions_'))
+
+#questions
+questions__ = InlineKeyboardBuilder()
+questions__.row(InlineKeyboardButton(text='Решенные', callback_data='solved_quest_'))
+questions__.row(InlineKeyboardButton(text='Не решенные', callback_data='unsolved_quest_'))
+questions__.row(InlineKeyboardButton(text='Все', callback_data='all_quest_'))
+questions__.row(InlineKeyboardButton(text='В меню', callback_data='stud_mod'))
+
+#not quests
+not_quests_ = InlineKeyboardBuilder()
+not_quests_.row(InlineKeyboardButton(text='Назад', callback_data='ask_quest_'))
+not_quests_.row(InlineKeyboardButton(text='В меню', callback_data='stud_mod'))
