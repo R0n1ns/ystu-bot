@@ -45,7 +45,13 @@ async def new_review(rev,them,who):
     :param them: тема отзыва
     :param who: кто отправил отзыв
     """
-    await async_db_request(f"INSERT INTO reviews (review,theme,who_send) VALUES ('{rev}','{them}','{who}');",params=None)
+    try:
+      rev.replace(';','')
+      them.replace(';','')
+      who.replace(';','')
+      await async_db_request(f"INSERT INTO reviews (review,theme,who_send) VALUES ('{rev}','{them}','{who}');",params=None)
+    except:
+      pass
 ############ ОТЗЫВЫ ############
 
 ############ ФАВАРИТНАЯ ГРУППА ############
@@ -114,7 +120,11 @@ async def add_qeust(id,text):
     :param text: максимум 300 символов
     """
     id = str(id)
-    await async_db_request(f"INSERT INTO questions (id_tg, text) VALUES ('{id}', '{text}');", params=None)
+    try:
+      text.replace(";",'')
+      await async_db_request(f"INSERT INTO questions (id_tg, text) VALUES ('{id}', '{text}');", params=None)
+    except:
+      pass
 
 async def get_qeust_from_user(id,type='all'):
     """
